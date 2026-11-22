@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VersionHunterX.SearchPage" Title="Поиск APK" BackgroundColor="{StaticResource Bg}">
+  <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" Padding="16" RowSpacing="10">
+    <Border BackgroundColor="{StaticResource Card}" StrokeShape="RoundRectangle 16" Stroke="#3B2166">
+      <SearchBar x:Name="Bar" Placeholder="Название приложения или игры…" TextColor="White" PlaceholderColor="#8B7FA8" SearchButtonPressed="OnSearch" />
+    </Border>
+    <FlexLayout Grid.Row="1" Wrap="Wrap" AlignItems="Center">
+      <CheckBox x:Name="Fd" IsChecked="True" Color="#F472B6" CheckedChanged="OnSrc" /><Label Text="F-Droid  " TextColor="White" VerticalOptions="Center" />
+      <CheckBox x:Name="Gh" IsChecked="True" Color="#F472B6" CheckedChanged="OnSrc" /><Label Text="GitHub  " TextColor="White" VerticalOptions="Center" />
+      <CheckBox x:Name="Gl" IsChecked="True" Color="#F472B6" CheckedChanged="OnSrc" /><Label Text="GitLab  " TextColor="White" VerticalOptions="Center" />
+      <CheckBox x:Name="Cb" IsChecked="True" Color="#F472B6" CheckedChanged="OnSrc" /><Label Text="Codeberg  " TextColor="White" VerticalOptions="Center" />
+      <CheckBox x:Name="Ap" IsChecked="True" Color="#F472B6" CheckedChanged="OnSrc" /><Label Text="Aptoide  " TextColor="White" VerticalOptions="Center" />
+      <Picker x:Name="SortPick" Title="Сортировка" SelectedIndex="0" TextColor="White" TitleColor="#8B7FA8" WidthRequest="180" SelectedIndexChanged="OnSort">
+        <Picker.ItemsSource>
+          <x:Array Type="{x:Type x:String}">
+            <x:String>По популярности</x:String>
+            <x:String>По названию</x:String>
+            <x:String>По источнику</x:String>
+          </x:Array>
+        </Picker.ItemsSource>
+      </Picker>
+    </FlexLayout>
+    <VerticalStackLayout Grid.Row="2" Spacing="4">
+      <Label Text="Искать то же на других сайтах (откроется браузер):" TextColor="{StaticResource Muted}" FontSize="12" />
+      <FlexLayout x:Name="Links" Wrap="Wrap" />
+    </VerticalStackLayout>
+    <HorizontalStackLayout Grid.Row="3" Spacing="10">
+      <ActivityIndicator x:Name="Busy" Color="#F472B6" />
+      <Label x:Name="Status" TextColor="{StaticResource Muted}" VerticalOptions="Center" />
+    </HorizontalStackLayout>
+    <CollectionView x:Name="List" Grid.Row="4" ItemTemplate="{StaticResource RepoTemplate}" SelectionMode="Single" SelectionChanged="OnSelected" />
+  </Grid>
+</ContentPage>

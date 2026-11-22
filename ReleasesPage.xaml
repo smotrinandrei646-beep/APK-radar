@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VersionHunterX.ReleasesPage" BackgroundColor="{StaticResource Bg}">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem x:Name="FavItem" Clicked="OnFav" />
+  </ContentPage.ToolbarItems>
+  <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" Padding="16" RowSpacing="10">
+    <VerticalStackLayout>
+      <Label x:Name="Header" TextColor="White" FontSize="22" FontAttributes="Bold" />
+      <Label x:Name="Sub" TextColor="{StaticResource Accent}" FontSize="13" />
+      <Label x:Name="Desc" TextColor="{StaticResource Muted}" FontSize="12" MaxLines="3" />
+    </VerticalStackLayout>
+    <Button Grid.Row="1" Text="Открыть страницу проекта" Style="{StaticResource GradBtn}" HeightRequest="42" Clicked="OnProject" />
+    <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+      <Border BackgroundColor="{StaticResource Card}" StrokeShape="RoundRectangle 14" Stroke="#3B2166" Padding="8,0">
+        <Entry x:Name="Filter" Placeholder="Фильтр версий, например 1.2" TextColor="White" PlaceholderColor="#8B7FA8" TextChanged="OnFilter" />
+      </Border>
+      <HorizontalStackLayout Grid.Column="1" Spacing="4">
+        <Switch x:Name="Pre" IsToggled="True" OnColor="#C026D3" Toggled="OnPre" />
+        <Label Text="тестовые" TextColor="{StaticResource Muted}" VerticalOptions="Center" FontSize="12" />
+      </HorizontalStackLayout>
+    </Grid>
+    <VerticalStackLayout Grid.Row="3" Spacing="6">
+      <ActivityIndicator x:Name="Busy" Color="#F472B6" />
+      <ProgressBar x:Name="Prog" IsVisible="False" ProgressColor="#F472B6" />
+      <Button x:Name="Cancel" Text="Отменить загрузку" IsVisible="False" BackgroundColor="#4A1530" TextColor="White" CornerRadius="12" HeightRequest="38" Clicked="OnCancel" />
+      <Label x:Name="Status" TextColor="{StaticResource Muted}" FontSize="12" />
+    </VerticalStackLayout>
+    <CollectionView x:Name="List" Grid.Row="4" SelectionMode="None">
+      <CollectionView.ItemTemplate>
+        <DataTemplate>
+          <Border Margin="0,6" Padding="14" BackgroundColor="{StaticResource Card}" Stroke="#3B2166" StrokeShape="RoundRectangle 18">
+            <VerticalStackLayout Spacing="8">
+              <Label Text="{Binding Title}" TextColor="White" FontSize="16" FontAttributes="Bold" />
+              <Label Text="{Binding NotesShort}" IsVisible="{Binding HasNotes}" TextColor="{StaticResource Muted}" FontSize="11" />
+              <Button Text="Страница релиза" BackgroundColor="#2A1850" TextColor="White" CornerRadius="12" HeightRequest="34" FontSize="12" Clicked="OnRelease" />
+              <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding Assets}">
+                <BindableLayout.ItemTemplate>
+                  <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                      <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="{Binding Label}" TextColor="White" FontSize="12" LineBreakMode="MiddleTruncation" />
+                        <Label Text="{Binding Badge}" TextColor="{StaticResource Accent}" FontSize="11" />
+                      </VerticalStackLayout>
+                      <Button Grid.Column="1" Text="⬇" Style="{StaticResource GradBtn}" WidthRequest="48" HeightRequest="40" Clicked="OnDownload" />
+                      <Button Grid.Column="2" Text="🔗" BackgroundColor="#2A1850" TextColor="White" CornerRadius="14" WidthRequest="48" HeightRequest="40" Clicked="OnOpenLink" />
+                    </Grid>
+                  </DataTemplate>
+                </BindableLayout.ItemTemplate>
+              </VerticalStackLayout>
+            </VerticalStackLayout>
+          </Border>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+    </CollectionView>
+  </Grid>
+</ContentPage>

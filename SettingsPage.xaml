@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VersionHunterX.SettingsPage" Title="Ещё" BackgroundColor="{StaticResource Bg}">
+  <ScrollView>
+    <VerticalStackLayout Padding="16" Spacing="14">
+      <Button Text="🕘 История поиска" Style="{StaticResource GradBtn}" HeightRequest="52" Clicked="OnHistory" />
+      <Button Text="🔐 Проверка SHA-256 файла" Style="{StaticResource GradBtn}" HeightRequest="52" Clicked="OnVerify" />
+      <Border BackgroundColor="{StaticResource Card}" StrokeShape="RoundRectangle 18" Stroke="#3B2166" Padding="16">
+        <VerticalStackLayout Spacing="8">
+          <Label Text="Токен GitHub (необязательно)" TextColor="White" FontAttributes="Bold" />
+          <Label Text="Без токена GitHub разрешает около 60 запросов в час. С токеном (без прав, только чтение публичного) — 5000." TextColor="{StaticResource Muted}" FontSize="12" />
+          <Entry x:Name="Token" IsPassword="True" Placeholder="ghp_…" TextColor="White" PlaceholderColor="#8B7FA8" />
+          <Button Text="Сохранить токен" BackgroundColor="#2A1850" TextColor="White" CornerRadius="12" Clicked="OnSaveToken" />
+        </VerticalStackLayout>
+      </Border>
+      <Button Text="Очистить историю поиска" BackgroundColor="#2A1850" TextColor="White" CornerRadius="12" Clicked="OnClearHist" />
+      <Button Text="Удалить все скачанные файлы" BackgroundColor="#4A1530" TextColor="White" CornerRadius="12" Clicked="OnClearDl" />
+      <Label Text="APK Радар 2.0. Приложение ищет файлы только в открытых источниках и не размещает их сами. Всегда сверяйте SHA-256 и качайте программы только у доверенных разработчиков." TextColor="{StaticResource Muted}" FontSize="12" />
+    </VerticalStackLayout>
+  </ScrollView>
+</ContentPage>
